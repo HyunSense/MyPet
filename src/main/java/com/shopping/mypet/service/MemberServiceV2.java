@@ -2,9 +2,9 @@ package com.shopping.mypet.service;
 
 import com.shopping.mypet.dto.LoginForm;
 import com.shopping.mypet.dto.SignUpForm;
-import com.shopping.mypet.dto.MemberDto;
 import com.shopping.mypet.entity.Member;
 import com.shopping.mypet.repository.MemberRepository;
+import com.shopping.mypet.util.RegExpConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,7 +19,7 @@ import static com.shopping.mypet.util.RegExpConst.*;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberServiceV2 {
 
     private final MemberRepository memberRepository;
 
@@ -30,7 +30,7 @@ public class MemberService {
                 .orElse(null);
     }
 
-    public boolean memberIdIsPresent(String loginId) {
+    public boolean checkForDuplicateId(String loginId) {
 
         Optional<Member> findMember = memberRepository.findByLoginId(loginId);
 
@@ -64,30 +64,30 @@ public class MemberService {
 
     }
 
-    public Map<String, String> signupMemberValidation(SignUpForm createMember) {
+    public Map<String, String> signupMemberValidation(SignUpForm signUpForm) {
 
 
         Map<String, String> errors = new HashMap<>();
 
         Pattern passwordPattern = Pattern.compile(REGEXP_USER_PW_TYPE1);
-        Matcher passMatcher = passwordPattern.matcher(createMember.getPassword());
+        Matcher passMatcher = passwordPattern.matcher(signUpForm.getPassword());
 
-        Pattern loginIdPattern = Pattern.compile(REGEXP_USER_ID2);
-        Matcher loginMatcher = loginIdPattern.matcher(createMember.getLoginId());
+        Pattern loginIdPattern = Pattern.compile(REGEXP_USER_ID_TYPE2);
+        Matcher loginMatcher = loginIdPattern.matcher(signUpForm.getLoginId());
 
         Pattern emailPattern = Pattern.compile(REGEXP_USER_EMAIL);
-        Matcher emailMatcher = emailPattern.matcher(createMember.getEmail());
+        Matcher emailMatcher = emailPattern.matcher(signUpForm.getEmail());
 
         //검증 로직
 
-        boolean findMember = memberIdIsPresent(createMember.getLoginId());
+        boolean isDuplicateId = checkForDuplicateId(signUpForm.getLoginId());
 
-        if (findMember) {
+        if (isDuplicateId) {
 
             errors.put("loginId", "이미 존재하는 아이디입니다.");
         }
 
-        if (!StringUtils.hasText(createMember.getLoginId())) {
+        if (!StringUtils.hasText(signUpForm.getLoginId())) {
 
             errors.put("loginId", "아이디는 필수입니다.");
         }
@@ -102,17 +102,17 @@ public class MemberService {
             errors.put("password", "대소문자 + 숫자 + 특수문자 조합으로 8 ~ 20자리를 입력해주세요.");
         }
 
-        if (!createMember.getPassword().equals(createMember.getRepeatPassword())) {
+        if (!signUpForm.getPassword().equals(signUpForm.getRepeatPassword())) {
 
             errors.put("repeatPassword", "비밀번호가 일치하지 않습니다.");
         }
 
-        if (createMember.getEmail().equals(createMember.getPassword())) {
+        if (signUpForm.getEmail().equals(signUpForm.getPassword())) {
 
             errors.put("password", "아이디와 비밀번호가 동일해서는 안됩니다.");
         }
 
-        if (!StringUtils.hasText(createMember.getEmail())) {
+        if (!StringUtils.hasText(signUpForm.getEmail())) {
 
             errors.put("email", "이메일은 필수입니다.");
         }

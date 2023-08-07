@@ -12,8 +12,8 @@ public abstract class RegExpConst {
     public static final String REGEXP_USER_EMAIL = "\\w+@\\w+\\.\\w+(\\.\\w+)?";
 
     // 2. 사용자 아이디에 대한 정규식 - 영문 숫자 조합 6~10자리
-    public static final String REGEXP_USER_ID = "^[a-z]{1}[a-z0-9]{5,10}+$";
-    public static final String REGEXP_USER_ID2 = "^[a-z0-9]{1}[a-z0-9]{5,10}+$";
+    public static final String REGEXP_USER_ID_TYPE1 = "^[a-z]{1}[a-z0-9]{5,10}+$";
+    public static final String REGEXP_USER_ID_TYPE2 = "^[a-z0-9]{1}[a-z0-9]{5,10}+$";
 
     // 3-1. 사용자 패스워드에 대한 정규식 - 대소문자 + 숫자 + 특수문자 조합으로 8 ~ 20자리로 정의 한다.
     public static final String REGEXP_USER_PW_TYPE1 = "^(?=.*[a-zA-Z])((?=.*\\d)|(?=.*\\W)).{8,20}+$";
