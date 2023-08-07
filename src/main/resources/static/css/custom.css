@@ -1,0 +1,121 @@
+
+/*----- font ----- */
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 300;
+    src: url(/fonts/NotoSansKr/NotoSansKR-Light.otf) format('opentype');
+    }
+
+@font-face {
+font-family: 'Noto Sans KR';
+font-style: normal;
+font-weight: 400;
+src: url(/fonts/NotoSansKr/NotoSansKR-Regular.otf) format('opentype');
+    }
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    src: url(/fonts/NotoSansKr/NotoSansKR-Medium.otf) format('opentype');
+    }   
+
+
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    
+}
+
+.offcanvas-size-xl {
+    --bs-offcanvas-width: min(95vw, 600px) !important;
+}
+.offcanvas-size-xxl {
+    --bs-offcanvas-width: min(95vw, 90vw) !important;
+}
+.offcanvas-size-md { /* add Responsivenes to default offcanvas */
+    --bs-offcanvas-width: min(95vw, 400px) !important;
+}
+.offcanvas-size-sm {
+    --bs-offcanvas-width: min(95vw, 250px) !important;
+}
+
+.navbar a i {
+
+    color: black;
+}
+
+@media(max-width:767.98px) {
+    .navbar a i {
+        /* font-size: calc(1.3rem + 0.6vw); */
+        font-size: calc(1.325rem + 0.9vw);
+    }
+}
+
+.navbar-logo {
+
+    max-width: 30%;
+    max-height: 30%;
+}
+
+/* @media(max-width:767.98px) {
+    .navbar-logo-container {
+        display: flex;
+        justify-content: center;
+    }       
+} */
+
+.best-item .best-img{
+
+    /* width: 75%; */
+    /* height: 75%; */
+    /* object-fit: fill; */
+}
+
+.item-logo{
+
+    max-width: 40%;
+    max-height: 40%;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    /* margin-top: 0; */
+}
+
+.dropdown-menu {
+    transition: 1s ease;
+}
+
+
+header .carousel-inner {
+
+    height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+/* .best-item .carousel-inner {
+
+    width: 50vh;
+    height: 50vh;
+
+} */
+
+.carousel-inner .carousel-item img {
+    
+    /* width: auto; */
+    /* max-height: 100%; */
+}
+
+#carouselExampleIndicators .container {
+
+    max-width: 100%;
+}
+
+/* .carousel-indicators button {
+
+    border-radius: 0.6rem;
+
+} */
