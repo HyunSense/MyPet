@@ -23,4 +23,7 @@ public class SignUpForm {
 //    @NotEmpty
     private String nickName;
 
+    private String address;
+    private String detailAddress;
+
 }

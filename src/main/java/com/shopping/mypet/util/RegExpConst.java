@@ -42,4 +42,7 @@ public abstract class RegExpConst {
     // 9. 우편 번호에 대한 정규식
     public static final String REGEXP_POSTAL_CODE = "^[\\d]{3}-[\\d]{2}+$";
 
+    // 10. 이름, 닉네임에 대한 정규식 (특수문자,길이 제한,공백제한)
+    public static final String REGEXP_KOREAN_ENGLISH = "([a-zA-z가-힣]){2,12}";
+
 }

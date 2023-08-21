@@ -8,7 +8,6 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/common2.css" rel="stylesheet" />
-<!--    <link href="/css/pretendard.css" rel="stylesheet" />-->
 
 </head>
 <body class="">
@@ -49,6 +48,20 @@
                 <div class="d-grid mt-4 mx-auto">
                     <button type="submit" class="btn btn-primary btn-form py-2" th:text="#{button.member.login}">로그인</button>
                 </div>
+
+                <div class="hr-text py-3 mt-4">
+                    <span class="px-1">또는</span>
+                </div>
+
+                <div class="mt-4 mx-auto">
+                    <div class="d-grid">
+                        <button type="submit" class="btn py-2 kakao-login">카카오 로그인</button>
+                    </div>
+                    <div class="d-grid mt-3">
+                        <button type="submit" class="btn py-2 naver-login">네이버 로그인</button>
+                    </div>
+                </div>
+
                 <div class="mt-4 text-end text-sm">
                     <a href="" class="text-blue-500 text-decoration-none" th:text="#{button.member.findMember}">계정찾기</a>
                 </div>

@@ -9,12 +9,11 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceV2 {
+public class MemberServiceV3 {
 
     private final MemberRepository memberRepository;
 
     public Member login(String loginId, String password) {
-        // TODO: Null 일때 처리를 어떻게 할 것인가?
         return memberRepository.findByLoginId(loginId)
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);

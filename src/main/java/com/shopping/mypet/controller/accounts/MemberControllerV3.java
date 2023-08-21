@@ -27,12 +27,12 @@ import static com.shopping.mypet.util.RegExpConst.*;
 @Controller
 @RequestMapping("/accounts")
 @RequiredArgsConstructor
-public class MemberControllerV2 {
+public class MemberControllerV3 {
 
     private final MemberServiceV2 memberService;
     private final MemberRepository memberRepository;
 
-    @GetMapping("/login")
+//    @GetMapping("/login")
     public String loginGet(Model model) {
 
         model.addAttribute(new LoginForm());
@@ -41,7 +41,7 @@ public class MemberControllerV2 {
     }
 
 //    @PostMapping("/login")
-    public String loginPostV1(@ModelAttribute LoginForm loginForm, BindingResult bindingResult) {
+    public String loginPost(@ModelAttribute LoginForm loginForm, BindingResult bindingResult) {
 
         log.info("loginId = {} password = {}", loginForm.getLoginId(), loginForm.getPassword());
 
@@ -73,40 +73,7 @@ public class MemberControllerV2 {
 
     }
 
-    /**
-     * new FieldError, new ObjectError 대신 rejectValue, reject 사용
-     */
-    @PostMapping("/login")
-    public String loginPostV2(@ModelAttribute LoginForm loginForm, BindingResult bindingResult) {
-
-        if (!StringUtils.hasText(loginForm.getLoginId())) {
-
-            bindingResult.rejectValue("loginId","required.id");
-        }
-
-        if (!StringUtils.hasText(loginForm.getPassword())) {
-
-            bindingResult.rejectValue("password", "required.pw");
-        }
-
-        Member login = memberService.login(loginForm.getLoginId(), loginForm.getPassword());
-
-        if (login == null) {
-
-            bindingResult.reject("required.global");
-        }
-
-        if (bindingResult.hasErrors()) {
-            log.info("errors={}", bindingResult);
-            return "view/accounts/v2/login";
-        }
-
-
-        return "redirect:/";
-
-    }
-
-    @GetMapping("/signup")
+//    @GetMapping("/signup")
     public String signUpGet(Model model) {
         model.addAttribute("signUpForm", new SignUpForm());
 
@@ -134,41 +101,45 @@ public class MemberControllerV2 {
         boolean isDuplicateId = memberService.checkForDuplicateId(signUpForm.getLoginId());
 
         if (isDuplicateId) {
-            bindingResult.addError(new FieldError("signUpForm", "loginId", "이미 존재하는 아이디입니다."));
+            bindingResult.addError(new FieldError("signUpForm", "loginId", signUpForm.getLoginId(),false, new String[]{"signUpForm.duplicate.loginId"}, null, null));
         }
 
+
         if (!StringUtils.hasText(signUpForm.getLoginId())) {
-            bindingResult.addError(new FieldError("signUpForm", "loginId", "아이디는 필수입니다."));
+            bindingResult.addError(new FieldError("signUpForm", "loginId", signUpForm.getLoginId(),false, new String[]{"signUpForm.required.loginId"}, null, null));
 
         } else if (!loginMatcher.matches()) {
-            bindingResult.addError(new FieldError("signUpForm", "loginId", "잘못된 아이디 입니다."));
+            bindingResult.addError(new FieldError("signUpForm", "loginId", signUpForm.getLoginId(),false, new String[]{"signUpForm.invalid.loginId"}, null, null));
+
 
         }
 
         if (!passMatcher.matches()) {
-            bindingResult.addError(new FieldError("signUpForm", "password", "대소문자 + 숫자 + 특수문자 조합으로 8 ~ 20자리를 입력해주세요."));
+            bindingResult.addError(new FieldError("signUpForm", "loginId", signUpForm.getLoginId(),false, new String[]{"signUpForm.invalid.password"}, null, null));
 
 
         }
 
         if (!signUpForm.getPassword().equals(signUpForm.getRepeatPassword())) {
             bindingResult.addError(new FieldError("signUpForm", "repeatPassword", "비밀번호가 일치하지 않습니다."));
+            bindingResult.addError(new FieldError("signUpForm", "loginId", signUpForm.getLoginId(),false, new String[]{"signUpForm.notMatch.repeatPassword"}, null, null));
 
 
         }
 
         if (!signUpForm.getLoginId().isEmpty() && !signUpForm.getPassword().isEmpty() && signUpForm.getLoginId().equals(signUpForm.getPassword())) {
-            bindingResult.addError(new ObjectError("signUpForm", "아이디와 비밀번호가 동일해서는 안됩니다."));
 
-
+            bindingResult.addError(new ObjectError("signUpForm", new String[]{"signUpForm.equal"}, null, null));
         }
 
         if (!StringUtils.hasText(signUpForm.getEmail())) {
             bindingResult.addError(new FieldError("signUpForm", "email", "이메일은 필수입니다."));
+            bindingResult.addError(new FieldError("signUpForm", "loginId", signUpForm.getLoginId(),false, new String[]{"signUpForm.required.email"}, null, null));
 
 
         } else if (!emailMatcher.matches()) {
             bindingResult.addError(new FieldError("signUpForm", "email", "잘못된 이메일입니다."));
+            bindingResult.addError(new FieldError("signUpForm", "loginId", signUpForm.getLoginId(),false, new String[]{"signUpForm.invalid.email"}, null, null));
 
 
         }
@@ -189,79 +160,7 @@ public class MemberControllerV2 {
             log.info("errors={}", bindingResult);
             return "view/accounts/v2/signup";
         }
+
         return "redirect:/login";
     }
- @PostMapping("/signup")
-    public String signUpPostV2(@ModelAttribute SignUpForm signUpForm, BindingResult bindingResult) {
-
-        Pattern passwordPattern = Pattern.compile(REGEXP_USER_PW_TYPE1);
-        Matcher passMatcher = passwordPattern.matcher(signUpForm.getPassword());
-
-        Pattern loginIdPattern = Pattern.compile(REGEXP_USER_ID_TYPE2);
-        Matcher loginMatcher = loginIdPattern.matcher(signUpForm.getLoginId());
-
-        Pattern emailPattern = Pattern.compile(REGEXP_USER_EMAIL);
-        Matcher emailMatcher = emailPattern.matcher(signUpForm.getEmail());
-
-        Pattern namePattern = Pattern.compile(REGEXP_KOREAN_ENGLISH);
-        Matcher nameMatcher = namePattern.matcher(signUpForm.getName());
-        Matcher nickNameMatcher = namePattern.matcher(signUpForm.getNickName());
-
-
-
-        boolean isDuplicateId = memberService.checkForDuplicateId(signUpForm.getLoginId());
-
-        if (isDuplicateId) {
-            bindingResult.rejectValue("loginId", "signUpForm.duplicate.loginId");
-        }
-
-        if (!StringUtils.hasText(signUpForm.getLoginId())) {
-            bindingResult.rejectValue("loginId", "signUpForm.required.loginId");
-
-        } else if (!loginMatcher.matches()) {
-            bindingResult.rejectValue("loginId", "signUpForm.invalid.loginId");
-
-        }
-
-        if (!passMatcher.matches()) {
-            bindingResult.rejectValue("password", "signUpForm.invalid.password");
-
-        }
-
-        if (!signUpForm.getPassword().equals(signUpForm.getRepeatPassword())) {
-            bindingResult.rejectValue("repeatPassword", "signUpForm.notMatch.repeatPassword");
-
-        }
-
-        if (!signUpForm.getLoginId().isEmpty() && !signUpForm.getPassword().isEmpty() && signUpForm.getLoginId().equals(signUpForm.getPassword())) {
-            bindingResult.reject("signUpForm.equal");
-        }
-
-        if (!StringUtils.hasText(signUpForm.getEmail())) {
-            bindingResult.rejectValue("email", "signUpForm.required.email");
-
-        } else if (!emailMatcher.matches()) {
-            bindingResult.addError(new FieldError("signUpForm", "email", "잘못된 이메일입니다."));
-            bindingResult.rejectValue("email", "invalid.email");
-        }
-
-        if (!StringUtils.hasText(signUpForm.getName())) {
-            bindingResult.rejectValue("name", "signUpForm.required.name");
-        } else if (!nameMatcher.matches()) {
-            bindingResult.rejectValue("name", "signUpForm.invalid.name");
-        }
-
-        if (!StringUtils.hasText(signUpForm.getNickName())) {
-            bindingResult.rejectValue("nickName", "signUpForm.required.nickName");
-        } else if (!nickNameMatcher.matches()) {
-            bindingResult.rejectValue("nickName", "signUpForm.invalid.nickName");
-        }
-
-        if (bindingResult.hasErrors()) {
-            log.info("errors={}", bindingResult);
-            return "view/accounts/v2/signup";
-        }
-        return "redirect:/login";
-    }
-
 }

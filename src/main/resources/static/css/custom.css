@@ -55,8 +55,8 @@ body {
 
 .navbar-logo {
 
-    max-width: 30%;
-    max-height: 30%;
+    max-width: 24%;
+    max-height: 24%;
 }
 
 /* @media(max-width:767.98px) {
@@ -79,12 +79,24 @@ body {
     max-height: 40%;
 }
 
-.dropdown:hover .dropdown-menu {
-    display: block;
-    /* margin-top: 0; */
+.cusnav-link {
+
+    color: #000;
+    align-items: center;
+    text-decoration: none;
+    
 }
 
+.cusnav-link:hover {
+
+    color: #183b66;
+}
+
+
+
 .dropdown-menu {
+
+    border-radius: 0%;
     transition: 1s ease;
 }
 

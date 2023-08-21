@@ -6,6 +6,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>MY PET에 오신것을 환영합니다.</title>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -26,9 +27,9 @@
                     <a class="navbar-brand" href="/index4.html">
                         <img src="/img/mypet_logo.png" class="img-fluid navbar-logo" alt="">
                     </a>
-                    <a href="/admin/addform.html">
+                    <!-- <a href="/admin/addform.html">
                         <span>상품등록</span>
-                    </a>
+                    </a> -->
                 </div>
                 <div class="offcanvas offcanvas-start offcanvas-size-sm col-4" tabindex="-1" id="navbarSupportedContent" aria-labelledby="offcanvasExampleLabel">
                     <div class="offcanvas-header">
@@ -38,14 +39,19 @@
                     <div class="offcanvas-body">
                         <div class="flex-fill">
                             <ul class="navbar-nav d-flex justify-content-end mb-2 mb-lg-0 mx-lg-4">
-                                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">SHOP</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">EVENT</a></li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" aria-expanded="false">COMMUNITY</a>
+                                    <a class="cusnav-link dropdown-toggle mx-4" id="navbarDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">SHOP</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#!">사료</a></li>
+                                        <li><a class="dropdown-item" href="#!">간식</a></li>
+                                    </ul>
+                                </li>
+                                <!-- <li class="nav-item"><a class="nav-link" href="#!">EVENT</a></li> -->
+                                <li class="nav-item dropdown">
+                                    <a class="cusnav-link dropdown-toggle" id="navbarDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">COMMUNITY</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li><a class="dropdown-item" href="#!">공지사항</a></li>
                                         <li><a class="dropdown-item" href="#!">문의사항</a></li>
-                                        <!-- <li><a class="dropdown-item" href="#!">New Arrivals</a></li> -->
                                     </ul>
                                 </li>
                             </ul>
