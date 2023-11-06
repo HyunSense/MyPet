@@ -1,5 +1,8 @@
 
 /*----- font ----- */
+
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
 @font-face {
     font-family: 'Noto Sans KR';
     font-style: normal;
@@ -22,11 +25,21 @@ src: url(/fonts/NotoSansKr/NotoSansKR-Regular.otf) format('opentype');
     }   
 
 
+    
+
 
 body {
+    font-family: 'Pretendard', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* body {
     font-family: 'Noto Sans KR', sans-serif;
     
-}
+    
+} */
+
+/* Navigation */
+
 
 .offcanvas-size-xl {
     --bs-offcanvas-width: min(95vw, 600px) !important;
@@ -48,30 +61,35 @@ body {
 
 @media(max-width:767.98px) {
     .navbar a i {
-        /* font-size: calc(1.3rem + 0.6vw); */
         font-size: calc(1.325rem + 0.9vw);
     }
 }
 
+/* navbar-logo-image SIZE */
+
 .navbar-logo {
 
-    max-width: 24%;
-    max-height: 24%;
+    max-width: 25%;
+    max-height: 25%;
 }
 
-/* @media(max-width:767.98px) {
-    .navbar-logo-container {
-        display: flex;
-        justify-content: center;
-    }       
-} */
+@media (max-width: 576px) {
 
-.best-item .best-img{
-
-    /* width: 75%; */
-    /* height: 75%; */
-    /* object-fit: fill; */
+    .navbar-logo {
+        max-width: 55%;
+        max-height: 55%;
+    }
 }
+
+@media (max-width: 768px) {
+
+    .navbar-logo {
+        max-width: 40%;
+        max-height: 40%;
+    }
+}
+
+
 
 .item-logo{
 
@@ -97,7 +115,7 @@ body {
 .dropdown-menu {
 
     border-radius: 0%;
-    transition: 1s ease;
+    /* transition: 1s ease; */
 }
 
 
@@ -108,26 +126,229 @@ header .carousel-inner {
     align-items: center;
 }
 
-/* .best-item .carousel-inner {
-
-    width: 50vh;
-    height: 50vh;
-
-} */
-
-.carousel-inner .carousel-item img {
-    
-    /* width: auto; */
-    /* max-height: 100%; */
-}
 
 #carouselExampleIndicators .container {
 
     max-width: 100%;
 }
 
-/* .carousel-indicators button {
 
-    border-radius: 0.6rem;
+/* additem.html */
+.list-group li a {
 
+    text-decoration: none;
+    color: black;
+}
+
+
+.add-item-form{
+
+}
+
+.bg-custom {
+
+    background-color: #183b66;
+
+}
+
+.add-item-form input:focus,
+.add-item-form textarea:focus {
+    /* outline: none; */
+    box-shadow: none;
+    /* border-color: black; */
+}
+
+
+
+.add-item-form label {
+    /* border: 1px solid black; */
+}
+
+.add-item-form textarea {
+
+    width: 100%;
+    height: 8rem;
+    resize: none;
+}
+
+.add-item-image {
+
+    width: 429.33px;
+    height: 429.33px;
+}
+
+.form-check-input {
+    width: 2rem;
+    height: 2rem;
+}
+
+/*iteminfo.html*/
+.table td img {
+
+    width: 6rem;
+    height: 6rem;
+}
+
+/*notice.html*/
+.page-item.active .page-link {
+    border-color: #183b66;
+    background-color: #183b66;
+
+}
+
+/* .btn.btn-primary.btn-sm {
+    border-color: #183b66;
+    background-color: #183b66;
 } */
+
+
+/*edit.html*/
+.edit-form div:first-child input{
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid #999;
+}
+
+.edit-form div:nth-child(2) input{
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid #999;
+}
+
+.edit-form div:nth-child(2) button {
+
+    outline: none;
+    border: 0;
+    background-color: white;
+    border-bottom: 1px solid #999;
+}
+
+.edit-form .dropdown-item {
+
+    font-size: 0.9rem;
+}
+
+.edit-form textarea {
+    width: 100%;
+    height: 20rem;
+    resize: none;
+    outline: none;
+    border: 1px solid #999;
+}
+
+.edit-form .dropdown-toggle::after {
+    content: "";
+    margin-left: 3rem;
+}
+
+/*admin-notice.html*/
+.table-input-check {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* item.html */
+.item-btn {
+    width: 3rem;
+    text-align: center;
+    outline: none;
+    border: none;
+}
+
+
+
+.mt-7 {
+
+    margin-top: 9rem;
+}
+
+.fw-medium {
+
+    font-weight: 500 !important;
+}
+
+.max-w-md {
+
+    max-width: 28rem;
+}
+
+
+
+.hr-text {
+
+    display: flex;
+    flex-basis: 100%;
+    font-size: 0.9rem;
+    align-items: center;
+    text-align: center;
+    color:  #6b7280;
+}
+
+.hr-text::before, .hr-text::after {
+
+    content: "";
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+
+}
+
+.bg-darkblue {
+
+    background-color: #374151;
+
+}
+
+.btn-form {
+    font-size: 0.875rem;
+    background-color: #183b66;
+    border: none;
+}
+
+.text-dark-500 {
+
+    color: #374151;
+}
+
+.text-blue-500 {
+
+    color: #0090f9 !important;
+}
+
+.text-base {
+    font-size: 1rem;
+    line-height: 1.7rem;
+}
+
+
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+
+.kakao-login {
+   background-color: #FEE500 !important;
+   background-image: url(/img/kakao_icon.png);
+   background-size: 20px;
+   background-position: 13px 49%;
+   background-repeat: no-repeat;
+   font-size: 0.875rem;
+   border-color: #FEE500 !important;
+   border-radius: 0.375rem;
+   color: #3c1e1e !important;
+}
+
+.naver-login {
+    background-color: #27d34a !important;
+    background-image: url(/img/naver_icon.png);
+    background-size: 16px;
+    background-position: 15px 50%;
+    background-repeat: no-repeat;
+    font-size: 0.875rem;
+    border-color: #27d34a !important;
+    border-radius: 0.375rem;
+    color: #fff !important;
+ }

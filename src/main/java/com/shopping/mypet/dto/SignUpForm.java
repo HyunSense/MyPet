@@ -1,6 +1,7 @@
 package com.shopping.mypet.dto;
 
-import com.shopping.mypet.util.RegExpConst;
+import com.shopping.mypet.validation.NotBlankGroup;
+import com.shopping.mypet.validation.PatternGroup;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -41,5 +42,6 @@ public class SignUpForm {
 
     @NotBlank
     private String detailAddress;
+
 
 }

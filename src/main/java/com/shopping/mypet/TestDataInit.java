@@ -34,8 +34,14 @@ public class TestDataInit {
                 .password("1234")
                 .build();
 
+        Member admin = Member.builder()
+                .loginId("admin")
+                .password("admin")
+                .build();
+
         memberRepository.save(member1);
         memberRepository.save(member2);
         memberRepository.save(member3);
+        memberRepository.save(admin);
     }
 }

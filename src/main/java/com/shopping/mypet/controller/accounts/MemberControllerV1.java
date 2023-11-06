@@ -2,9 +2,12 @@ package com.shopping.mypet.controller.accounts;
 
 import com.shopping.mypet.dto.LoginForm;
 import com.shopping.mypet.dto.SignUpForm;
-import com.shopping.mypet.dto.ValidationSequence;
+import com.shopping.mypet.validation.ValidationSequence;
 import com.shopping.mypet.entity.Member;
 import com.shopping.mypet.service.MemberService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -33,18 +36,36 @@ public class MemberControllerV1 {
 
 
     @PostMapping("/login")
-    public String loginPost(@Validated @ModelAttribute LoginForm loginForm, BindingResult bindingResult) {
+    public String loginPost(@Validated @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletResponse response) {
 
-        Member login = memberService.login(loginForm.getLoginId(), loginForm.getPassword());
+        Member loginMember = memberService.login(loginForm.getLoginId(), loginForm.getPassword());
 
-        if (login == null) {
+        log.info("loginForm.getLoginId() = {}, loginForm.getPassword() = {}", loginForm.getLoginId(), loginForm.getPassword());
+
+        if (loginMember == null) {
             bindingResult.reject("required.global");
-        }
-
-        if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             return "view/accounts/login";
         }
+
+        // 로그인 성공시 Home
+        Cookie loginCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
+        loginCookie.setPath("/");
+        response.addCookie(loginCookie);
+        log.info("loginIdCookie.getName = {}, loginIdCookie.getValue = {}"
+                , loginCookie.getName(), loginCookie.getValue());
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletResponse response) {
+
+        Cookie cookie = new Cookie("memberId", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
 
         return "redirect:/";
     }
@@ -56,7 +77,7 @@ public class MemberControllerV1 {
         return "view/accounts/signup";
     }
 
-
+    // devU01TX0FVVEgyMDIzMDkwNDE5MzY0NDExNDA3NTA=
     @PostMapping("/signup")
     public String signUpPost(@Validated(ValidationSequence.class) @ModelAttribute SignUpForm signUpForm, BindingResult bindingResult) {
 

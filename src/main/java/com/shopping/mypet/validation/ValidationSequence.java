@@ -1,4 +1,4 @@
-package com.shopping.mypet.dto;
+package com.shopping.mypet.validation;
 
 import jakarta.validation.GroupSequence;
 
